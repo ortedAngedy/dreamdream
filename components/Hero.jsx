@@ -30,7 +30,7 @@ const Hero = () => {
 		<section className="md:px-8 flex flex-col gap-8 mt-8 ">
 			<div className="h1-header">
 				<Image
-					className="md:absolute hidden  right-0 -top-[15%] z-10"
+					className="absolute md:block hidden  right-0 -top-[15%] z-10"
 					alt="Chess ArtWork"
 					src={chess}
 					size="responsive"
@@ -45,7 +45,7 @@ const Hero = () => {
 			</div>
 			<div className="h1-header   justify-end">
 				<Image
-					className="absolute  md:absolute hidden -left-[3%] top-[20%] z-10
+					className="absolute md:block hidden  -left-[3%] top-[20%] z-10
 					"
 					alt="Chess ArtWork"
 					src={lamp}
