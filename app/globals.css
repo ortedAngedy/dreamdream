@@ -2,26 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+	font-family: "GLDDisplay-Black";
+	src: url(/public/assets/fonts/GLDDisplay-Black.ttf);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.glDisplay {
+	font-family: "GLDDisplay-Black", Impact, Haettenschweiler, "Arial Narrow Bold",
+		sans-serif !important;
+	line-height: 0.8;
+}
+
+:root {
+	--main-color: 103, 10, 255;
+	--foreground-rgb: #fff;
+	--red-color: 255, 0, 31;
+	--black-color: 0, 0, 0;
+	--white-color: 255, 255, 255;
+	--gray-text-color: 156, 156, 156;
+	--gray-background-color: 245, 245, 245;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+	color: #fff;
+	background: rgb(var(--main-color));
+}
+/* 
+* {
+	@apply border;
+} */
+
+@layer components {
+	.h1-header {
+		@apply flex   w-full;
+	}
+	.h1-text {
+		@apply text-9xl w-full md:text-[22rem]  glDisplay;
+	}
 }
