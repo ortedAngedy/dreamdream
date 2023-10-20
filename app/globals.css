@@ -39,4 +39,52 @@ body {
 	.h1-text {
 		@apply text-9xl w-full md:text-[22rem]  glDisplay;
 	}
+	.list {
+		@apply text-2xl p-6 transition-all duration-75 ease-linear cursor-pointer flex w-full justify-between items-center;
+	}
+	.project-image {
+		@apply absolute top-0 left-[50%] -translate-x-[50%] rotate-12 object-cover border-[5px] border-white  h-[512px] w-[410px] z-30 transition-all duration-1000 ease-in-out group-hover:scale-105;
+	}
+	.title-2 {
+		@apply md:text-[420px] text-black glDisplay;
+	}
 }
+
+/* clipped border */
+.clipped-border {
+	clip-path: polygon(
+		20% 0,
+		91.5% 0,
+		100% 14.5%,
+		100% 100%,
+		80% 100%,
+		8.7% 100%,
+		0 85.1%,
+		0 0
+	);
+}
+
+.clipped-border-2 {
+	clip-path: (145% at 50% 50%);
+}
+
+/* simple a subtle floating */
+.animate-float {
+	animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-20px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+/* * {
+	@apply border;
+} */

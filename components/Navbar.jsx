@@ -1,9 +1,10 @@
 "use client"
 import Image from "next/image"
 import React, { useState } from "react"
-import logo from "@/public/assets/logo.svg"
-import activeDot from "@/public/assets/active-dot.svg"
+
+import activeDot from "/public/assets/active-dot.svg"
 import Link from "next/link"
+import LogoImage from "/utils/LogoImage"
 
 const menuItems = [
 	{
@@ -27,9 +28,9 @@ const menuItems = [
 const Navbar = () => {
 	const [active, setActive] = useState(false)
 	return (
-		<div className="max-w-macOs z-20 w-full flex px-4 md:px-8 justify-between items-center py-6 fixed">
+		<div className=" z-20 w-full flex px-4 md:px-8 justify-between items-center py-6 fixed">
 			<Link href={"/"}>
-				<Image src={logo} width={100} sizes="responsive" />
+				<LogoImage />
 			</Link>
 			<ul className="flex justify-between items-center gap-6 font-normal ">
 				{menuItems.map((item, idx) => (

@@ -1,36 +1,21 @@
 import { split } from "postcss/lib/list"
 import React from "react"
-import chess from "@/public/assets/chess.png"
-import lamp from "@/public/assets/lamp.png"
+import chess from "/public/assets/chess.png"
+import lamp from "/public/assets/lamp.png"
 import Image from "next/image"
-import sprinkle from "@/public/assets/sprinkle.svg"
-import round from "@/public/assets/round.svg"
-import underline from "@/public/assets/underline.svg"
-
-const splitWord = word => {
-	// split word into array of letters
-	const upperCaseWord = word.toUpperCase()
-	const letters = upperCaseWord.split("")
-
-	// map over letters and return span with letter and class
-	const splitLetters = letters.map((letter, index) => {
-		return (
-			<span className=" tracking-tight" key={index}>
-				{letter}
-			</span>
-		)
-	})
-
-	// return mapped array
-	return splitLetters
-}
+import sprinkle from "/public/assets/sprinkle.svg"
+import round from "/public/assets/round.svg"
+import underline from "/public/assets/underline.svg"
+import ShowReel from "./ShowReel"
+import Works from "./Works"
+import { splitWord } from "/utils/splitWord"
 
 const Hero = () => {
 	return (
 		<section className="md:px-8 flex flex-col gap-8 mt-8 ">
 			<div className="h1-header">
 				<Image
-					className="absolute md:block hidden  right-0 -top-[15%] z-10"
+					className="absolute lg:block hidden  right-0 -top-[15%] z-10"
 					alt="Chess ArtWork"
 					src={chess}
 					size="responsive"
@@ -45,7 +30,7 @@ const Hero = () => {
 			</div>
 			<div className="h1-header   justify-end">
 				<Image
-					className="absolute md:block hidden  -left-[3%] top-[20%] z-10
+					className="absolute lg:block hidden  -left-[3%] top-[20%] z-10
 					"
 					alt="Chess ArtWork"
 					src={lamp}
@@ -60,7 +45,7 @@ const Hero = () => {
 						<span className="relative">
 							<Image
 								alt="vector"
-								className="absolute -top-[100%] left-10 w-12"
+								className="absolute -top-[100%] left-10 w-12 "
 								src={sprinkle}
 								sizes="responsive"
 							/>
@@ -69,27 +54,21 @@ const Hero = () => {
 						<span className="relative">
 							<Image
 								alt="vector"
-								className="absolute"
-								src={sprinkle}
+								className=" absolute"
+								src={round}
 								sizes="responsive"
 							/>
-							learning
+							learning{" "}
 						</span>
-						and{" "}
-						<span className="relative">
-							<Image
-								alt="vector"
-								className="absolute"
-								src={sprinkle}
-								sizes="responsive"
-							/>
-							programming
-						</span>
-						. Biweekly, we create online products that make the internet better
-						for everyone.
+						and <span className="relative">programming</span>. Biweekly, we
+						create online products that make the internet better for everyone.
 					</p>
 				</div>
 			</div>
+			{/*ShowReel Video Player */}
+			<ShowReel />
+			{/*WOrks */}
+			<Works />
 		</section>
 	)
 }
