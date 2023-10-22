@@ -18,10 +18,7 @@ const socials = [
 
 const Footer = () => {
 	const router = useRouter()
-	const footerColor =
-		router.pathname === "/about" && router.asPath === "/about"
-			? "yellow"
-			: "black"
+	const footerColor = router.asPath === "/about" ? "yellow" : "black"
 
 	return (
 		<footer

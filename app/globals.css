@@ -32,6 +32,12 @@ body {
 	@apply border;
 } */
 
+@layer base {
+	section {
+		@apply min-h-screen px-6 md:px-8 pt-28 overflow-hidden;
+	}
+}
+
 @layer components {
 	.h1-header {
 		@apply flex   w-full;

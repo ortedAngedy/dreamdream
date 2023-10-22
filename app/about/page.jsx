@@ -9,7 +9,7 @@ import { teamMembers } from "/utils/data"
 import CTA from "/components/CTA"
 const About = () => {
 	return (
-		<section className="min-h-screen px-6 md:px-8 bg-black pt-26 overflow-hidden">
+		<section className=" bg-black ">
 			<div className="translate-x-1/3">
 				<p className="glDisplay text-3xl pb-0">THE</p>
 				<h1 className="  h1-text">
