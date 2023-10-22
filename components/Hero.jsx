@@ -12,18 +12,18 @@ import { splitWord } from "/utils/splitWord"
 
 const Hero = () => {
 	return (
-		<section className="md:px-8 flex flex-col gap-8 mt-8 ">
-			<div className="h1-header">
+		<section className="md:px-8 flex mt-12   flex-col gap-8 md:mt-8 ">
+			<div className="">
 				<Image
 					className="absolute lg:block hidden  right-0 -top-[15%] z-10"
 					alt="Chess ArtWork"
 					src={chess}
 					size="responsive"
 				/>
-				<div className="flex   relative w-fit flex-col gap-0  items-start justify-start">
+				<div className="   relative w-fit flex-col gap-0 justify-center items-center  md:items-start md:justify-start">
 					{/* Chess Image*/}
 
-					<h3 className=" text-5xl absolute right-0 top-0">THE</h3>
+					<h3 className="md:text-5xl text-xl absolute right-0 -top-4 ">THE</h3>
 					<h1 className="  h1-text text-black">{splitWord("SMALL")}</h1>
 					<h1 className="  h1-text">{splitWord("TEAM")}</h1>
 				</div>
@@ -36,38 +36,22 @@ const Hero = () => {
 					src={lamp}
 					size="responsive"
 				/>
-				<div className="flex text-right  w-fit  relative  flex-col gap-0  items-start justify-end">
-					<h3 className=" text-5xl absolute left-2 -top-6">TO</h3>
-					<h1 className="  h1-text text-black">{splitWord("LEARN")}</h1>
-					<h1 className="  h1-text">{splitWord("GREAT")}</h1>
-					<p className="w-[600px] text-2xl  mt-8 text-start ">
-						We are Dream Dream, a team passionate{" "}
-						<span className="relative">
-							<Image
-								alt="vector"
-								className="absolute -top-[100%] left-10 w-12 "
-								src={sprinkle}
-								sizes="responsive"
-							/>
-							about
-						</span>{" "}
-						<span className="relative">
-							<Image
-								alt="vector"
-								className=" absolute"
-								src={round}
-								sizes="responsive"
-							/>
-							learning{" "}
-						</span>
-						and <span className="relative">programming</span>. Biweekly, we
-						create online products that make the internet better for everyone.
+				<div className="flex text-right w-full md:w-fit relative  flex-col gap-0  items-start justify-end">
+					<h1 className="  h1-text w-fit text-black">{splitWord("LEARN")}</h1>
+					<h3 className="md:text-5xl text-xl absolute left-0 sm:left-1/2 md:left-0 -top-4 ">
+						TO
+					</h3>
+					<h1 className="w-fit h1-text">{splitWord("CODE")}</h1>
+					<p className="lg:w-[600px] w-full sm:text-justify px-6 lg:p-0 h-fit md:text-2xl  text-sm mt-8 lg:text-start ">
+						We are Dream Dream, a team passionate about learning and{" "}
+						programming. Biweekly, we create online products that make the
+						internet better for everyone.
 					</p>
 				</div>
 			</div>
-			{/*ShowReel Video Player */}
+
 			<ShowReel />
-			{/*WOrks */}
+
 			<Works />
 		</section>
 	)

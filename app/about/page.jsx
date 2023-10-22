@@ -10,19 +10,15 @@ import CTA from "/components/CTA"
 const About = () => {
 	return (
 		<section className=" bg-black ">
-			<div className="translate-x-1/3">
+			<div className="lg:translate-x-1/3 ">
 				<p className="glDisplay text-3xl pb-0">THE</p>
 				<h1 className="  h1-text">
 					{splitWord("DREAM")} <br /> {splitWord("TEAM")}
 				</h1>
 			</div>
-			<div className="flex relative justify-start gap-8 items-center">
-				<Image
-					src={teamOne}
-					alt="Team Image One"
-					className="aspect-square h-[912px]"
-				/>
-				<p className="text-[28px] mb-10 leading-10 mt-4 w-1/4 text-justify">
+			<div className="flex relative justify-start md:flex-row flex-col mt-16 md:mt-0 gap-4 lg:gap-8 items-center">
+				<Image src={teamOne} alt="Team Image One" className="aspect-square" />
+				<p className="text-[28px] z-30 mb-10 leading-10 mt-4 lg:w-1/4 text-justify">
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, iusto
 					ea rem ex dolor quae nihil tenetur! Asperiores ut, voluptate fuga
 					dicta atque reiciendis maxime iusto tenetur sapiente amet nulla.
@@ -44,11 +40,14 @@ const About = () => {
 			<div className="flex flex-col gap-32">
 				{teamMembers.map((member, idx) => (
 					<AboutCard
+						key={idx}
 						name={member.name}
 						role={member.role}
 						description={member.description}
-						profile={member.image}
-						flexDirection={idx % 2 === 0 ? "flex-row-reverse" : "flex-row"}
+						profile={member.avatar}
+						flexDirection={
+							member.id % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"
+						}
 					/>
 				))}
 			</div>

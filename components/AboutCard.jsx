@@ -12,14 +12,14 @@ const AboutCard = ({
 }) => {
 	return (
 		<div
-			className={`${flexDirection} 
-        w-full flex items-center justify-evenly gap-8 mx-auto px-20 flex-row
+			className={`${flexDirection}  
+        w-full flex md:flex-row flex-col items-start justify-evenly gap-8 mx-auto md:px-20  px-10
         `}>
 			<div>
 				<Image
 					src={profile}
 					alt={alt}
-					className="aspect-square flex-1 "
+					className={`aspect-square drop-shadow-glow flex-1 `}
 					priority
 				/>
 			</div>
@@ -29,7 +29,7 @@ const AboutCard = ({
 					<h3 className="md:text-[3.5rem]">{name}</h3>
 					<p className="md:text-[2rem] text-[#9c9c9c]">{role}</p>
 				</div>
-				<p className="mt-6 md:text-[1.6rem] text-justify md:w-[500px]">
+				<p className="mt-6 md:text-[1.6rem] text-xl text-justify md:w-[500px]">
 					{description}
 				</p>
 			</div>

@@ -1,6 +1,8 @@
 "use client"
-import LogoImage from "../utils/LogoImage"
-import { useRouter } from "next/navigation"
+import Image from "next/image"
+import logo from "/public/assets/logo.svg"
+import { usePathname } from "next/navigation"
+import Link from "next/link"
 const socials = [
 	{
 		name: "Instagram",
@@ -17,26 +19,37 @@ const socials = [
 ]
 
 const Footer = () => {
-	const router = useRouter()
-	const footerColor = router.asPath === "/about" ? "yellow" : "black"
-
+	const pathname = usePathname()
+	console.log(pathname)
 	return (
 		<footer
-			style={{
-				backgroundColor: footerColor,
-			}}
-			className="w-full py-8 flex justify-between gap-8 items-center
-         px-8 md:px-16  text-[#9C9C9C]">
+			style={{}}
+			className={`w-full py-8 flex justify-between gap-8 items-center
+         px-8 md:px-16  text-[#9C9C9C]
+		 ${pathname === "/about" ? "bg-white" : "bg-black"}
+		 `}>
 			<div className="flex gap-8 items-center">
-				<LogoImage />
-				<ul className="flex gap-4 ">
+				<Link href={"/"}>
+					<Image
+						className={` filter invert
+					${pathname === "/about" ? "" : "filter invert-0"}
+					`}
+						src={logo}
+						width={100}
+						sizes="responsive"
+						priority
+					/>
+				</Link>
+				<ul className="flex md:flex-row flex-col text-sm md:gap-4 ">
 					{socials.map(social => (
-						<li>{social.name}</li>
+						<li className="hover:text-white cursor-pointer transition-all duration-200 ease-linear">
+							{social.name}
+						</li>
 					))}
 				</ul>
 			</div>
 
-			<p>All rights are not reserved yet!</p>
+			<p className="text-sm">All rights are not reserved yet!</p>
 		</footer>
 	)
 }

@@ -2,84 +2,62 @@
 
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
-import AnimatedCursor from "react-animated-cursor"
+
 import { splitWord } from "/utils/splitWord"
+import { projectData } from "/utils/data"
 
-import image1 from "/public/assets/projects/1.jpeg"
-import image2 from "/public/assets/projects/2.jpeg"
-import image3 from "/public/assets/projects/3.jpeg"
-import image4 from "/public/assets/projects/4.jpeg"
 import workImage from "/public/assets/ruler&pencil.png"
-import BigButton from "/utils/BigButton"
 import CTA from "./CTA"
-
-const worksList = [
-	{
-		id: 1,
-		projectName: "Project Derulo",
-		imgSrc: image1,
-		date: "oct-1",
-	},
-	{
-		id: 2,
-		projectName: "Project Selena",
-		imgSrc: image2,
-		date: "sept-1",
-	},
-	{
-		id: 3,
-		projectName: "Project Puth",
-		imgSrc: image3,
-		date: "nov-1",
-	},
-	{
-		id: 4,
-		projectName: "Project Swift",
-		imgSrc: image4,
-		date: "dec-1",
-	},
-]
+import Link from "next/link"
 
 const Works = () => {
 	const [hoveredImage, setHoveredImage] = useState("")
-	const [isHovered, setIsHovered] = useState(false)
-	const [moveX, setMoveX] = useState(null)
+	const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 })
+	const [prevMouseX, setPrevMouseX] = useState(null)
+	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+	const [aciveText, setActiveText] = useState(true)
 
-	const handleMouseOver = imgSrc => {
+	// Basically all the text are active but I hover on one particular project it becomes active and the rest becomes inactive
+
+	const handleMouseOver = (imgSrc, e) => {
 		setHoveredImage(imgSrc)
-		setIsHovered(true)
-	}
 
-	const handleMouseLeave = () => {
-		setHoveredImage("")
-		setIsHovered(false)
+		// Set the initial x position to match the current mouse position
+		const imageX = e.clientX - window.innerWidth / 2 // Adjust for image size
+		setImagePosition({ x: imageX, y: 0 })
 	}
 
 	useEffect(() => {
-		// get realtime cursro co-ordinates
-		const width = window.innerWidth
-		console.log(width)
-		const handleMouseMove = e => {
-			// convert client to 100%
-			const clientX = e.clientX
-			const mediumDeviceClientX = e.clientX / 2
+		const updateImagePosition = e => {
+			if (prevMouseX === null) {
+				setPrevMouseX(e.clientX)
+			}
 
-			setMoveX(e.clientX)
+			const mouseX = e.clientX - 20
+			const direction = mouseX - prevMouseX // Positive for right, negative for left
+
+			// Calculate rotation based on direction
+			const rotation = direction * 0.1 // You can adjust the multiplier for the rotation speed
+			setWindowWidth(window.innerWidth)
+			setPrevMouseX(mouseX)
+			setImagePosition({ x: mouseX, y: 0, rotation })
 		}
-		window.addEventListener("mousemove", handleMouseMove)
+
+		window.addEventListener("mousemove", updateImagePosition)
+
 		return () => {
-			window.removeEventListener("mousemove", handleMouseMove)
+			window.removeEventListener("mousemove", updateImagePosition)
 		}
-	}, [])
+	}, [prevMouseX])
 
 	return (
 		<div className="mt-24  flex flex-col">
-			<div className="relative flex justify-between  w-full mb-12 h-40">
+			<div className="relative flex justify-between  w-full ">
 				<h2
 					style={{
-						transform: `translateX(-10%) rotate(-8deg)`,
+						transform: `translateX(-10%)  rotate(-8deg)`,
 					}}
-					className="title-2  -rotate-2">
+					className="title-2 mb-16 -rotate-2">
 					{splitWord("WORKS")}
 				</h2>
 				<Image
@@ -89,72 +67,51 @@ const Works = () => {
 				/>
 			</div>
 
-			<ul className=" relative text-2xl flex flex-col gap-3 mt-52 pb-24  ">
-				{worksList.map((list, indx) => (
-					<li
-						onMouseLeave={handleMouseLeave}
-						onMouseOver={() => handleMouseOver(list.imgSrc)}
-						className={`list group first-of-type:border-t border-black p-8  cursor-pointer transition-all duration-1000 
-						border-b
-						ease-in-out`}
-						key={indx}>
-						<Image
-							style={{
-								display: hoveredImage === list.imgSrc ? "block" : "none",
-								transition: "all 1s ease",
-								transform: `translateX(${moveX}px) rotate(8deg)`,
-							}}
-							className="project-image"
-							src={hoveredImage === list.imgSrc ? list.imgSrc : ""}
-							alt={list.projectName}
-						/>
+			<ul className=" relative text-2xl flex flex-col gap-3  pb-24  ">
+				{projectData.map(project => {
+					return (
+						<li
+							key={project.id}
+							onMouseEnter={() => setActiveText(false)}
+							onMouseOver={e => handleMouseOver(project.image, e)}
+							onMouseLeave={() => setActiveText(true)}
+							className={`relative group  border-t border-black  last-of-type:border-b p-10
+							${aciveText ? "text-white" : "text-black hover:text-white"}
+							`}>
+							<div className="w-full flex justify-between  items-center">
+								<p
+									className={`text-5xl    transition-all duration-300 ease-linear  w-fit mb-0 `}>
+									{project.name}
+								</p>
+								<p className="text-sm w-fit ">{project.date}</p>
+							</div>
 
-						<div
-							onMouseOver={() => handleMouseOver(list.imgSrc)}
-							className={`w-full flex items-center justify-between ${
-								isHovered ? "hover:text-black" : "text-white"
-							}`}>
-							<p>{list.projectName}</p>
-							<p>{list.date}</p>
-						</div>
-					</li>
-				))}
+							<Image
+								style={{
+									transform: ` translateX(${imagePosition.x}px) rotate(${imagePosition.rotation}deg)`,
+									display:
+										hoveredImage === project.image &&
+										// Device Condtions
+										window.innerWidth > 768
+											? "block"
+											: "none",
+									transition: "all  ease",
+								}}
+								className={`absolute md:inline-block hidden z-50 w-[300px] h-[390px]   transition-all  border-[4px] border-white
+								object-cover duration-500 ease-linear top-0`}
+								src={project.image}
+							/>
+						</li>
+					)
+				})}
 			</ul>
 
 			{/**Button for More Works */}
 			<button className="underline underline-offset-2 mt-10 flex justify-end w-full text-2xl">
-				Other Archived Projects
+				<Link prefetch={false} href="/projects">
+					Other Archived Projects
+				</Link>
 			</button>
-			<AnimatedCursor
-				color="0,0,0"
-				innerSize={80}
-				outerSize={0}
-				outerAlpha={0.2}
-				innerAlph={0}
-				innerScale={1.2}
-				outerScale={5}
-				blendMode="screen"
-				innerStyle={
-					{
-						// Smooth transition when the element is entering the viewport
-					}
-				}
-				clickables={[
-					"a",
-					"button",
-					"li ",
-					'input[type="text"]',
-					'input[type="email"]',
-					'input[type="number"]',
-					'input[type="submit"]',
-					'input[type="image"]',
-					"label[for]",
-					"select",
-					"textarea",
-					"button",
-					".link",
-				]}
-			/>
 
 			<CTA />
 		</div>
